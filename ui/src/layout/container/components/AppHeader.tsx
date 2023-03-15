@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu } from "antd";
+import { Menu, Layout, Typography, Row, Col } from "antd";
 import { HomeFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
@@ -59,16 +59,33 @@ const menuItems = [
 ];
 
 const AppHeader = () => {
+  const { Title } = Typography;
+  const { Header } = Layout;
+
   const navigate = useNavigate();
+
   const onMenuClick = (item: any) => {
     console.log(typeof item);
     navigate(`/${item.key}`);
   };
 
   return (
-    <div className="appHeader">
-      <Menu items={menuItems} mode="horizontal" onClick={onMenuClick} />
-    </div>
+    <Header className="appHeader">
+      <Row align="middle" gutter={16}>
+        <Col flex="auto">
+          <Menu
+            items={menuItems}
+            mode="horizontal"
+            onClick={onMenuClick}
+          />
+        </Col>
+        <Col>
+          <Title level={1} style={{ margin: 0}}>
+            JE Fashion Store
+          </Title>
+        </Col>
+      </Row>
+    </Header>
   );
 };
 

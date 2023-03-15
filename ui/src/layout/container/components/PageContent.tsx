@@ -1,10 +1,14 @@
 import React from "react";
-import AppRoutes from "./AppRoutes"
+import { Layout } from "antd";
+import AppRoutes from "./AppRoutes";
 
 const PageContent = () => {
-  return <div className="pageContent">
-    <AppRoutes />
-  </div>;
+  const { Content } = Layout;
+  return (
+    <Content className="pageContent">
+      <AppRoutes />
+    </Content>
+  );
 };
 
 export default PageContent;
