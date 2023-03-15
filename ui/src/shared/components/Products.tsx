@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { addToCart, getAllProducts } from "../../api";
+import { useParams } from "react-router-dom";
+import { addToCart, getAllProducts, getProductsByCategory } from "../../api";
 import {
   List,
   Card,
@@ -9,6 +10,7 @@ import {
   Rate,
   Button,
   message,
+  Spin,
 } from "antd";
 
 import i18next from "i18next";
@@ -27,16 +29,27 @@ interface ProductProps {
 
 const Products = () => {
   const [items, setItems] = useState<[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const { Text, Paragraph } = Typography;
   const { Ribbon } = Badge;
 
+  const { categoryId } = useParams<{ categoryId?: string }>();
+
   useEffect(() => {
-    getAllProducts().then((res: any) => {
-      console.log(res);
-      setItems(res.products);
-    });
-  }, []);
+    setLoading(true);
+    (categoryId ? getProductsByCategory(categoryId) : getAllProducts()).then(
+      (res: any) => {
+        console.log(res);
+        setItems(res.products);
+        setLoading(false);
+      }
+    );
+  }, [categoryId]);
+
+  if (loading) {
+    return <Spin spinning></Spin>;
+  }
 
   return (
     <div>
@@ -65,8 +78,10 @@ const Products = () => {
                   <Paragraph>
                     Price: {product?.price}€{" "}
                     <Text delete type="danger">
-                      {product?.price +
-                        (product?.price * product?.discountPercentage) / 100}
+                      {(
+                        product?.price +
+                        (product?.price * product?.discountPercentage) / 100
+                      ).toFixed(2)}
                       €
                     </Text>
                   </Paragraph>
