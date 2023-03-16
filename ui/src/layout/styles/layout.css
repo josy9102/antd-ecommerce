@@ -13,8 +13,13 @@
   padding: 24px;
 }
 
-.appHeader .ant-typography {
-  color: white !important;
+.appHeader {
+  background: white !important;
+}
+
+.shoppingCartIcon {
+  font-size: 30px;
+  cursor: pointer;
 }
 
 .appFooter {
@@ -33,4 +38,9 @@
 
 .text-center {
   text-align: center;
+}
+
+.vertical-align {
+  vertical-align: middle;
+  display: flex;
 }

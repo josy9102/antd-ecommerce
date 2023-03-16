@@ -1,4 +1,10 @@
 {
   "home": "homeeeee",
-  "more": "more"
+  "more": "more",
+  "shopping-cart": {
+    "title": "Your Shopping Cart"
+  },
+  "checkout" : {
+    "title": "Your Checkout"
+  }
 }
