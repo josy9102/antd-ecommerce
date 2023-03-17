@@ -10,7 +10,6 @@ import {
   Rate,
   Button,
   message,
-  Spin,
   Select,
   Space,
 } from "antd";
@@ -78,6 +77,8 @@ const Products = () => {
         } else if (sortOrder === "highLow") {
           return a?.price < b?.price ? 1 : a?.price === b?.price ? 0 : -1;
         }
+
+        return false;
       }
     );
     return sortedItems;

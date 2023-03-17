@@ -1,16 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import './i18n';
+import { Provider } from "react-redux";
+import "./i18n";
 import "./index.css";
 import AppLayout from "./layout/container";
 import reportWebVitals from "./reportWebVitals";
+import createStore from "./store";
+
+export const store = createStore();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <AppLayout />
+    <Provider store={store}>
+      <AppLayout />
+    </Provider>
   </React.StrictMode>
 );
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Menu,
   Layout,
@@ -15,9 +16,11 @@ import {
   Space,
   Checkbox,
   message,
+  Switch,
 } from "antd";
 import { HomeFilled, ShoppingCartOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { ThemeState, toggleTheme } from "../../reducers/themeState";
 
 import i18next from "i18next";
 import { getCart } from "../../../api";
@@ -80,6 +83,11 @@ const menuItems = [
 const AppHeader = () => {
   const { Title } = Typography;
   const { Header } = Layout;
+  const dispatch = useDispatch();
+
+  const currentTheme = useSelector(
+    (state: ThemeState) => state.themeState.theme
+  );
 
   const navigate = useNavigate();
 
@@ -88,14 +96,28 @@ const AppHeader = () => {
     navigate(`/${item.key}`);
   };
 
+  const switchTheme = () => {
+    dispatch(toggleTheme());
+  };
+
   return (
     <Header className="appHeader">
       <Row align="middle" gutter={16}>
         <Col flex="auto">
           <Menu items={menuItems} mode="horizontal" onClick={onMenuClick} />
         </Col>
+
         <Col>
-          <Title level={1} style={{ margin: 0 }}>
+          <Space>
+            Dark Theme
+            <Switch
+              checked={currentTheme === "dark" ? true : false}
+              onChange={switchTheme}
+            />
+          </Space>
+        </Col>
+        <Col>
+          <Title level={2} style={{ margin: 0 }}>
             JE Fashion Store
           </Title>
         </Col>
@@ -126,7 +148,7 @@ function AppCart() {
     setCartDrawerOpen(false);
     setCheckoutDrawerOpen(false);
 
-    message.success("Your order has been placed successfully.")
+    message.success("Your order has been placed successfully.");
   };
 
   return (
