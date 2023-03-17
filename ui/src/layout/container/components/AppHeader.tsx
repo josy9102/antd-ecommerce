@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Menu,
-  Layout,
   Typography,
   Row,
   Col,
@@ -21,6 +20,8 @@ import {
 import { HomeFilled, ShoppingCartOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { ThemeState, toggleTheme } from "../../reducers/themeState";
+
+import JEHeader from "../../../shared/components/antd/JEHeader";
 
 import i18next from "i18next";
 import { getCart } from "../../../api";
@@ -82,7 +83,6 @@ const menuItems = [
 
 const AppHeader = () => {
   const { Title } = Typography;
-  const { Header } = Layout;
   const dispatch = useDispatch();
 
   const currentTheme = useSelector(
@@ -101,7 +101,7 @@ const AppHeader = () => {
   };
 
   return (
-    <Header className="appHeader">
+    <JEHeader className="appHeader">
       <Row align="middle" gutter={16}>
         <Col flex="auto">
           <Menu items={menuItems} mode="horizontal" onClick={onMenuClick} />
@@ -125,7 +125,7 @@ const AppHeader = () => {
           <AppCart />
         </Col>
       </Row>
-    </Header>
+    </JEHeader>
   );
 };
 

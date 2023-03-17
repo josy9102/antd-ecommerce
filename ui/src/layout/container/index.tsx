@@ -4,7 +4,8 @@ import { Layout, ConfigProvider, theme } from "antd";
 import { BrowserRouter } from "react-router-dom";
 import { AppHeader, PageContent, AppFooter } from "./components";
 import "../styles/layout.css";
-import Token from "../../config/themes/token";
+import lightTheme from "../../config/themes/lightTheme";
+import darkTheme from "../../config/themes/darkTheme";
 
 import { ThemeState } from "../reducers/themeState";
 
@@ -16,8 +17,15 @@ const AppLayout = () => {
     <ConfigProvider
       theme={{
         algorithm:
-          currentTheme === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
-        token: Token,
+          currentTheme === "dark"
+            ? theme.darkAlgorithm
+            : theme.defaultAlgorithm,
+        token: {
+          colorBgContainer:
+            currentTheme === "light"
+              ? lightTheme.appPrimary
+              : darkTheme.appPrimary,
+        },
       }}
     >
       <Layout className="appLayout">
