@@ -12,6 +12,9 @@ import {
   Button,
   Form,
   Input,
+  Space,
+  Checkbox,
+  message,
 } from "antd";
 import { HomeFilled, ShoppingCartOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -109,11 +112,22 @@ function AppCart() {
   const [checkoutDrawerOpen, setCheckoutDrawerOpen] = useState<boolean>(false);
   const [cartItems, setCartItems] = useState<[]>([]);
 
+  const { Paragraph } = Typography;
+
   useEffect(() => {
     getCart().then((res) => {
       setCartItems(res.products);
     });
   }, []);
+
+  const onConfirmOrder = (values: any) => {
+    console.log(values);
+
+    setCartDrawerOpen(false);
+    setCheckoutDrawerOpen(false);
+
+    message.success("Your order has been placed successfully.")
+  };
 
   return (
     <div>
@@ -193,47 +207,59 @@ function AppCart() {
         onClose={() => setCheckoutDrawerOpen(false)}
         title={i18next.t("checkout.title") as string}
       >
-        <Form>
-          <Form.Item
-            rules={[
-              {
-                required: true,
-                message: "Please enter your full name.",
-              },
-            ]}
-            label="Full Name"
-            name="full-name"
-          >
-            <Input placeholder="Enter your full name" />
-          </Form.Item>
-          <Form.Item
-            rules={[
-              {
-                required: true,
-                type: "email",
-                message: "Please enter a valid email address.",
-              },
-            ]}
-            label="Email"
-            name="email"
-          >
-            <Input placeholder="Enter your email address" />
-          </Form.Item>
-          <Form.Item
-            rules={[
-              {
-                required: true,
-                message: "Please enter your address.",
-              },
-            ]}
-            label="Address"
-            name="address"
-          >
-            <Input placeholder="Enter your address" />
-          </Form.Item>
-          <Button type="primary" htmlType="submit">
-            Confirm order
-          </Button>
+        <Form
+          onFinish={onConfirmOrder}
+          validateTrigger="onBlur"
+          layout="vertical"
+        >
+          <Space direction="vertical" style={{ width: "100%" }}>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your full name.",
+                },
+              ]}
+              label="Full Name"
+              name="full-name"
+            >
+              <Input placeholder="Enter your full name" />
+            </Form.Item>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  type: "email",
+                  message: "Please enter a valid email address.",
+                },
+              ]}
+              label="Email"
+              name="email"
+            >
+              <Input placeholder="Enter your email address" />
+            </Form.Item>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  message: "Please enter your address.",
+                },
+              ]}
+              label="Address"
+              name="address"
+            >
+              <Input placeholder="Enter your address" />
+            </Form.Item>
+            <Form.Item>
+              <Checkbox defaultChecked disabled>
+                Cash on Delivery
+              </Checkbox>
+            </Form.Item>
+            <Paragraph type="secondary">More methods comming soon...</Paragraph>
+            <Button type="primary" htmlType="submit">
+              Confirm order
+            </Button>
+          </Space>
         </Form>
       </Drawer>
     </div>
