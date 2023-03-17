@@ -132,7 +132,7 @@ function AppCart() {
   return (
     <div>
       <div className="vertical-align" onClick={() => setCartDrawerOpen(true)}>
-        <Badge count={7}>
+        <Badge count={cartItems.length}>
           <ShoppingCartOutlined className="shoppingCartIcon" />
         </Badge>
       </div>
