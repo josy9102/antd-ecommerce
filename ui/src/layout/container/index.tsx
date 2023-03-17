@@ -4,7 +4,7 @@ import { Layout, ConfigProvider, theme } from "antd";
 import { BrowserRouter } from "react-router-dom";
 import { AppHeader, PageContent, AppFooter } from "./components";
 import "../styles/layout.css";
-import Token from "../../config/themes/Token";
+import Token from "../../config/themes/token";
 
 import { ThemeState } from "../reducers/themeState";
 
